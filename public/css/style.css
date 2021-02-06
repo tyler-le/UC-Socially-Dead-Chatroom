@@ -234,4 +234,9 @@ a {
 	.chat-sidebar {
 		display: none;
 	}
+
+	a.btn{
+		text-align: center;
+	}
+
 }

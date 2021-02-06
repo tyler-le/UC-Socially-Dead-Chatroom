@@ -47,10 +47,7 @@ db.once("open", () => {
 const botName = 'Triton Bot'
 // Run when a client connects. Store user to database
 io.on('connection', socket => {
-  socket.on('joinRoom', async ({
-    username,
-    room
-  }) => {
+   socket.on('joinRoom', async ({username, room}) => {
 
     const user = new User({
       username: username,
@@ -64,7 +61,7 @@ io.on('connection', socket => {
       socket.join(user.room);
     });
 
-    //Show Chat History
+    // //Show Chat History
     await showChatHistory(db, io, formatMessage, socket);
 
     // Then welcome incoming user
@@ -104,14 +101,12 @@ io.on('connection', socket => {
 
   // Runs when client disconnects. Remove user from database
   socket.on('disconnect', async () => {
-    const user = await User.findOneAndDelete({id: socket.id});
+    // Emit Message
+    // const user = await User.findOneAndDelete({id: socket.id});
+    const user = await User.find({id: socket.id});
     if (user) {
       const time = moment().format('h:mm a');
-
-      io.to(user.room).emit(
-        'message',
-        formatMessage(botName, `${user.username} has left the chat`, time)
-      );
+      io.to(user[0].room).emit('message', formatMessage(botName, `${user[0].username} has left the chat`, time));
     }
   });
 });
