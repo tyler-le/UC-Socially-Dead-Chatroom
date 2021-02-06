@@ -1,4 +1,6 @@
 //TODO: Add a delete and edit comment feature
+//      Change colors
+//      Separate messages on the DOM by day
 const http = require('http');
 const express = require('express');
 const socketio = require('socket.io');

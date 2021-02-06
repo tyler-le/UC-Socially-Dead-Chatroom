@@ -197,7 +197,10 @@ a {
 }
 
 .join-main .form-control {
-	margin-bottom: 20px;
+	margin-bottom: 2rem;
+	padding-bottom: 1rem;
+	background: #b9bbbe;
+
 }
 
 .join-main label {
