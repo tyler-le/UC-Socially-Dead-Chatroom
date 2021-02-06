@@ -1,2 +1,2 @@
 # uc-socially-dead-chatroom
-Realtime chatroom using MongoDB, NodeJS, and SocketIO.
+Realtime chatroom using MongoDB, Express, NodeJS, and SocketIO.
