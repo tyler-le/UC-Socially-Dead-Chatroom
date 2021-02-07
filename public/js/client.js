@@ -61,18 +61,18 @@ chatForm.addEventListener('submit', (e) => {
 function outputMessage(message) {
   const div = document.createElement('div');
   div.classList.add('message');
-  div.innerHTML = `<p class='meta'> ${message.username} <span> ${message.time} </span></p> <p class = "text" > ${message.text} </p>`
+  div.innerHTML = `<p class='meta'> ${message.username} <span>${message.time} </span></p> <p class = "text" > ${message.text} </p>`
   document.querySelector('.chat-messages').appendChild(div);
 }
 
-// function dateBreak(message){
+function dateBreak(message){
 
-//   const div = document.createElement('div');
-//   div.classList.add('timeBreak');
-//   div.innerHTML = `<h2 class="timeBreakH2"><span class="timeBreakSpan>TEST</span></h2>`
-//   document.querySelector('.chat-messages').appendChild(div);
+  const div = document.createElement('div');
+  div.classList.add('message');
+  div.innerHTML = `<p class='meta'> ${message.username} <span>${message.time} </span></p> <p class = "text" > ${message.text} </p>`
+  document.querySelector('.chat-messages').appendChild(div);
 
-// }
+}
 
 //Add room name to DOM
 function outputRoomName(room) {

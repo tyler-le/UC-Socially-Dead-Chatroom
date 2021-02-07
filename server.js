@@ -62,7 +62,7 @@ io.on('connection', socket => {
     });
 
     // //Show Chat History
-    await showChatHistory(db, formatMessage, io, user);
+    await showChatHistory(db, formatMessage, io, socket, user);
 
     // Then welcome incoming user
     const time = moment().format('h:mm a');
