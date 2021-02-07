@@ -32,13 +32,13 @@ socket.on('message', message => {
   chatMessages.scrollTop = chatMessages.scrollHeight;
 });
 
-//Time break for chat history from server
-socket.on('break', message => {  
-  dateBreak(message)
+// //Time break for chat history from server
+// socket.on('timeBreak', message => {  
+//   dateBreak(message)
 
-  //Scroll Down
-  chatMessages.scrollTop = chatMessages.scrollHeight;
-});
+//   //Scroll Down
+//   chatMessages.scrollTop = chatMessages.scrollHeight;
+// });
 
 //Message Submit
 chatForm.addEventListener('submit', (e) => {
@@ -65,14 +65,14 @@ function outputMessage(message) {
   document.querySelector('.chat-messages').appendChild(div);
 }
 
-function dateBreak(message){
+// function dateBreak(message){
 
-  const div = document.createElement('div');
-  div.classList.add('message');
-  div.innerHTML = `<p class='meta'> ${message.username} <span>${message.time} </span></p> <p class = "text" > ${message.text} </p>`
-  document.querySelector('.chat-messages').appendChild(div);
+//   const div = document.createElement('div');
+//   // div.classList.add('message');
+//   div.innerHTML = `<h5 class = 'dateBreak'> <span class = 'dateText'>${message.time}</span> </h5>`
+//   document.querySelector('.chat-messages').appendChild(div);
 
-}
+// }
 
 //Add room name to DOM
 function outputRoomName(room) {

@@ -123,7 +123,18 @@ a {
 	overflow-wrap: break-word;
 }
 
+.dateBreak {
+	width: 100%; 
+   text-align: center; 
+   border-bottom: 1px solid #000; 
+   line-height: 0.1em;
+   margin: 50px 0 20px; 
+}
 
+.dateBreak .dateText{
+	background:#36393f; 
+    padding:0 10px;
+}
 
 .chat-messages .message .meta {
 	font-size: 15px;

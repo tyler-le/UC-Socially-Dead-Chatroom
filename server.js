@@ -62,10 +62,11 @@ io.on('connection', socket => {
     });
 
     // //Show Chat History
-    await showChatHistory(db, formatMessage, io, socket, user);
+    await showChatHistory(db, formatMessage, socket, user);
 
     // Then welcome incoming user
-    const time = moment().format('h:mm a');
+    // const time = moment().format('h:mm a');
+    const time = moment().format('MMMM Do, h:mm A');
     socket.emit('message', formatMessage(botName, `Welcome to UC Socially Dead, ${user.username}!`, time));
 
     // Broadcast when a user connects
@@ -83,7 +84,7 @@ io.on('connection', socket => {
   // Listen for chatMessage
   socket.on('chatMessage', (msg) => {
     getCurrentUser(socket.id).then(async user => {
-      const time = moment().format('h:mm a');
+      const time = moment().format('MMMM Do, h:mm A');
 
        // Add message to history
      const history = new History({

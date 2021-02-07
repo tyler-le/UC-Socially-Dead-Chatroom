@@ -1,8 +1,7 @@
 const moment = require('moment');
 
-
-async function showChatHistory(db, formatMessage, io, socket, user) {
-  const timeBreak = moment().format("MMMM Do"); // "Sunday, February 14th 2010, 3:25:50 pm"
+async function showChatHistory(db, formatMessage, socket, user) {
+  // const timeBreak = moment().format("MMMM Do"); // "Sunday, February 14th 2010, 3:25:50 pm"
   // Load the database
   const chatHistoryArray = await db.collection('histories').find({}).toArray();
 
@@ -13,7 +12,7 @@ async function showChatHistory(db, formatMessage, io, socket, user) {
       }
   }
 
-  socket.emit('break', formatMessage("", " ", timeBreak))
+  // socket.emit('timeBreak', formatMessage("", " ", timeBreak))
 }
 
 module.exports = showChatHistory;
