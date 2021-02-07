@@ -1,14 +1,11 @@
 //TODO: Add a delete and edit comment feature
-//      Change colors
-//      Separate messages on the DOM by day
 
-const http = require('http');
 const express = require('express');
-const socketio = require('socket.io');
 const History = require('./models/history');
 const moment = require('moment');
 const formatMessage = require('./utils/messages');
 const showChatHistory = require('./utils/chatHistory');
+require('dotenv').config();
 
 const User = require('./models/user');
 const {
@@ -16,12 +13,10 @@ const {
   getCurrentUser,
 } = require('./utils/users')
 
-const app = express();
-const server = http.createServer(app);
-const io = socketio(server);
+const app = require('express')();
+const http = require('http').createServer(app);
+const io = require('socket.io')(http, {'pingTimeout': 30000});
 
-// const session = require('express-session');
-// const MongoStore = require('connect-mongo')(session);
 const PORT = process.env.PORT || 3000;
 
 // Set static folder
@@ -31,23 +26,23 @@ app.use(express.static(path.join(__dirname, 'public')))
 // Setup EJS
 app.set('view engine', 'ejs');
 
-
 const dbUrl = process.env.DB_URL
+
 //========== Set up database / Mongoose==========//
 const mongoose = require('mongoose');
 
 // Atlas DB
-// mongoose.connect(dbUrl, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-//   useCreateIndex: true,
-// });
-
-mongoose.connect('mongodb://localhost:27017/ucsociallydead', {
+mongoose.connect(dbUrl, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
 });
+
+// mongoose.connect('mongodb://localhost:27017/ucsociallydead', {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+//   useCreateIndex: true,
+// });
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "Connection Error:"));
@@ -58,6 +53,7 @@ db.once("open", () => {
 
 
 const botName = 'Triton Bot'
+
 // Run when a client connects. Store user to database
 io.on('connection', socket => {
    socket.on('joinRoom', async ({username, room}) => {
@@ -120,12 +116,15 @@ io.on('connection', socket => {
     const user = await User.find({id: socket.id});
     if (user) {
       const time = moment().format('h:mm a');
-      console.log(user)
       io.to(user[0].room).emit('message', formatMessage(botName, `${user[0].username} has left the chat`, time));
     }
   });
 });
 
-server.listen(PORT, () => {
+// server.listen(PORT, () => {
+//   console.log(`Listening on Port ${PORT}`);
+// })
+
+http.listen(PORT, () => {
   console.log(`Listening on Port ${PORT}`);
 })
