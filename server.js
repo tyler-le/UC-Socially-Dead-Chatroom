@@ -1,10 +1,6 @@
 //TODO: Add a delete and edit comment feature
 //      Change colors
 //      Separate messages on the DOM by day
-require('dotenv').config();
-if(process.env.NODE_ENV !== "production") {
-  require('dotenv').config();
-}
 
 const http = require('http');
 const express = require('express');
@@ -26,7 +22,6 @@ const io = socketio(server);
 
 // const session = require('express-session');
 // const MongoStore = require('connect-mongo')(session);
-
 const PORT = process.env.PORT || 3000;
 
 // Set static folder
