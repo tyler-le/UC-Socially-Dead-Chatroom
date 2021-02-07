@@ -62,7 +62,7 @@ io.on('connection', socket => {
     });
 
     // //Show Chat History
-    await showChatHistory(db, io, formatMessage, socket);
+    await showChatHistory(db, formatMessage, io, user);
 
     // Then welcome incoming user
     const time = moment().format('h:mm a');
@@ -106,6 +106,7 @@ io.on('connection', socket => {
     const user = await User.find({id: socket.id});
     if (user) {
       const time = moment().format('h:mm a');
+      console.log(user)
       io.to(user[0].room).emit('message', formatMessage(botName, `${user[0].username} has left the chat`, time));
     }
   });

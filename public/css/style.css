@@ -123,6 +123,28 @@ a {
 	overflow-wrap: break-word;
 }
 
+.chat-messages .timeBreak {
+	padding: 10px;
+	/* margin-bottom: 15px; */
+	/* background-color: #b9bbbe;
+	border-radius: 5px; */
+	overflow-wrap: break-word;
+	text-align: center;
+	font-weight: 700;
+}
+
+.chat-messages .timeBreakH2{
+	width: 100%; 
+	text-align: center; 
+	border-bottom: 1px solid #000; 
+	line-height: 0.1em;
+	margin: 10px 0 20px; 
+}
+.chat-messages .timeBreakSpan { 
+    background:#fff; 
+    padding:0 10px; 
+}
+
 .chat-messages .message .meta {
 	font-size: 15px;
 	font-weight: bold;

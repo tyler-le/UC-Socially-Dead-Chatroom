@@ -32,6 +32,14 @@ socket.on('message', message => {
   chatMessages.scrollTop = chatMessages.scrollHeight;
 });
 
+//Time break for chat history from server
+socket.on('break', message => {  
+  dateBreak(message)
+
+  //Scroll Down
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+});
+
 //Message Submit
 chatForm.addEventListener('submit', (e) => {
   //Prevent refresh for form submission
@@ -56,6 +64,15 @@ function outputMessage(message) {
   div.innerHTML = `<p class='meta'> ${message.username} <span> ${message.time} </span></p> <p class = "text" > ${message.text} </p>`
   document.querySelector('.chat-messages').appendChild(div);
 }
+
+// function dateBreak(message){
+
+//   const div = document.createElement('div');
+//   div.classList.add('timeBreak');
+//   div.innerHTML = `<h2 class="timeBreakH2"><span class="timeBreakSpan>TEST</span></h2>`
+//   document.querySelector('.chat-messages').appendChild(div);
+
+// }
 
 //Add room name to DOM
 function outputRoomName(room) {
