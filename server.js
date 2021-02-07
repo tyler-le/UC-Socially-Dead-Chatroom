@@ -1,6 +1,11 @@
 //TODO: Add a delete and edit comment feature
 //      Change colors
 //      Separate messages on the DOM by day
+require('dotenv').config();
+if(process.env.NODE_ENV !== "production") {
+  require('dotenv').config();
+}
+
 const http = require('http');
 const express = require('express');
 const socketio = require('socket.io');
@@ -19,6 +24,9 @@ const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 
+// const session = require('express-session');
+// const MongoStore = require('connect-mongo')(session);
+
 const PORT = process.env.PORT || 3000;
 
 // Set static folder
@@ -28,8 +36,18 @@ app.use(express.static(path.join(__dirname, 'public')))
 // Setup EJS
 app.set('view engine', 'ejs');
 
+
+const dbUrl = process.env.DB_URL
 //========== Set up database / Mongoose==========//
 const mongoose = require('mongoose');
+
+// Atlas DB
+// mongoose.connect(dbUrl, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+//   useCreateIndex: true,
+// });
+
 mongoose.connect('mongodb://localhost:27017/ucsociallydead', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
