@@ -1,6 +1,5 @@
 //TODO: Add a delete and edit comment feature
 
-const express = require('express');
 const History = require('./models/history');
 const moment = require('moment');
 const formatMessage = require('./utils/messages');
@@ -13,10 +12,12 @@ const {
   getCurrentUser,
 } = require('./utils/users')
 
-const app = express();
-const http = require('http').createServer(app);
-const io = require('socket.io')(http);
 const PORT = process.env.PORT || 3000;
+const express = require('express');
+const app = express();
+const http = require('http');
+const server = http.Server(app);
+const io = require('socket.io')(server);
 
 // Set static folder
 const path = require('path');
@@ -119,6 +120,6 @@ io.on('connection', socket => {
 //   console.log(`Listening on Port ${PORT}`);
 // })
 
-http.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Listening on Port ${PORT}`);
 })

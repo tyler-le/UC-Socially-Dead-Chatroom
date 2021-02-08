@@ -13,7 +13,6 @@ const {
 
 
 // const socket = io();
-// const socket = io("ws://ucsociallydead.com")
 const socket = io("ws:uc-socially-dead.herokuapp.com/socket.io/?EIO=4&transport=websocket");
 
 
