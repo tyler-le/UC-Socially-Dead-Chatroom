@@ -6,18 +6,19 @@ const formatMessage = require('./utils/messages');
 const showChatHistory = require('./utils/chatHistory');
 require('dotenv').config();
 
+const http = require('http');
+const express = require('express');
+const socketio = require('socket.io');
+const app = express();
+const server = http.createServer(app);
+const io = socketio(server);
+const PORT = process.env.PORT || 3000;
+
 const User = require('./models/user');
 const {
   userJoin,
   getCurrentUser,
 } = require('./utils/users')
-
-const PORT = process.env.PORT || 3000;
-const express = require('express');
-const app = express();
-const http = require('http');
-const server = http.Server(app);
-const io = require('socket.io')(server);
 
 // Set static folder
 const path = require('path');
@@ -26,18 +27,15 @@ app.use(express.static(path.join(__dirname, 'public')))
 // Setup EJS
 app.set('view engine', 'ejs');
 
+//========== Set up database / Mongoose==========//\
 const dbUrl = process.env.DB_URL
-
-//========== Set up database / Mongoose==========//
 const mongoose = require('mongoose');
-
 // Atlas DB
 mongoose.connect(dbUrl, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
 });
-
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "Connection Error:"));
@@ -46,9 +44,7 @@ db.once("open", () => {
 })
 //=====================================//
 
-
 const botName = 'Triton Bot'
-
 // Run when a client connects. Store user to database
 io.on('connection', socket => {
    socket.on('joinRoom', async ({username, room}) => {
