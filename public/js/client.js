@@ -11,7 +11,12 @@ const {
   ignoreQueryPrefix: true
 })
 
+
 const socket = io();
+// const socket = io("ws://ucsociallydead.com")
+
+
+
 //Join Chatroom
 socket.emit('joinRoom', {
   username,
