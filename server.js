@@ -1,14 +1,15 @@
 //TODO: Add a delete and edit comment feature
 
 const History = require('./models/history');
-const moment = require('moment');
 const formatMessage = require('./utils/messages');
 const showChatHistory = require('./utils/chatHistory');
+
+const moment = require('moment');
 require('dotenv').config();
+const socketio = require('socket.io');
 
 const http = require('http');
 const express = require('express');
-const socketio = require('socket.io');
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
@@ -65,7 +66,6 @@ io.on('connection', socket => {
     await showChatHistory(db, formatMessage, socket, user);
 
     // Then welcome incoming user
-    // const time = moment().format('h:mm a');
     const time = moment().format('MMMM Do, h:mm A');
     socket.emit('message', formatMessage(botName, `Welcome to UC Socially Dead, ${user.username}!`, time));
 
@@ -78,8 +78,6 @@ io.on('connection', socket => {
       io.to(user.room).emit('roomUsers', {room: user.room,allUsers});
     });
   });
-
-
 
   // Listen for chatMessage
   socket.on('chatMessage', (msg) => {
@@ -94,7 +92,6 @@ io.on('connection', socket => {
       time: time
     })
     await history.save();
-
       // Emit Message
       io.to(user.room).emit('message', formatMessage(user.username, msg, time));
     });
@@ -103,7 +100,6 @@ io.on('connection', socket => {
   // Runs when client disconnects. Remove user from database
   socket.on('disconnect', async () => {
     // Emit Message
-    // const user = await User.findOneAndDelete({id: socket.id});
     const user = await User.find({id: socket.id});
     if (user) {
       const time = moment().format('h:mm a');
@@ -111,10 +107,6 @@ io.on('connection', socket => {
     }
   });
 });
-
-// server.listen(PORT, () => {
-//   console.log(`Listening on Port ${PORT}`);
-// })
 
 server.listen(PORT, () => {
   console.log(`Listening on Port ${PORT}`);
