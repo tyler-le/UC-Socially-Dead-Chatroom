@@ -13,11 +13,9 @@ const {
   getCurrentUser,
 } = require('./utils/users')
 
-const app = require('express')();
+const app = express();
 const http = require('http').createServer(app);
-// const io = require('socket.io')(http, {'pingTimeout': 30000});
 const io = require('socket.io')(http);
-
 const PORT = process.env.PORT || 3000;
 
 // Set static folder
@@ -39,11 +37,6 @@ mongoose.connect(dbUrl, {
   useCreateIndex: true,
 });
 
-// mongoose.connect('mongodb://localhost:27017/ucsociallydead', {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-//   useCreateIndex: true,
-// });
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "Connection Error:"));
