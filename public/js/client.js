@@ -14,7 +14,6 @@ const {
 
 // const socket = io();
 // const socket = io("ws://ucsociallydead.com")
-https://uc-socially-dead.herokuapp.com/index.html
 const socket = io("ws:uc-socially-dead.herokuapp.com/socket.io/?EIO=4&transport=websocket");
 
 
