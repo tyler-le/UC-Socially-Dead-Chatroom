@@ -12,8 +12,8 @@ const {
 })
 
 
-const socket = io();
-// io.connect("https://ucsociallydead.herokuapp.com/chat.html", { transports: ['websocket'] }); // default is ['polling', 'websocket']
+// const socket = io();
+io.connect("https://ucsociallydead.herokuapp.com/chat.html", { transports: ['websocket'] }); // default is ['polling', 'websocket']
 
 
 
