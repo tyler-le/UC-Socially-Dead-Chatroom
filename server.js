@@ -69,8 +69,10 @@ io.on('connection', socket => {
     await showChatHistory(db, formatMessage, socket, user);
 
     // Then welcome incoming user
-    // const time = moment().format('MMMM Do, h:mm A zz');
-    const time = moment().format('LLL');
+    // const time = moment().format('MMMM Do, h:mm A');
+    const date = moment();
+    const dateClone = date.clone().subtract(8, 'hours').format('MMMM Do, h:m A')
+    const time = dateClone;
 
 
     socket.emit('message', formatMessage(botName, `Welcome to UC Socially Dead, ${user.username}!`, time));
