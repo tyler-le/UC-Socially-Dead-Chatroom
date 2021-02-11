@@ -125,19 +125,19 @@ io.on('connection', socket => {
   // Runs when client disconnects. Remove user from database
   socket.on('disconnect', async () => {
     // Emit Message
-    const user = await User.find({
-      id: socket.id
-    });
-    if (user) {
-      // const time = moment().local().format('h:mm a');
-      //Locally, this time is 8 hours off. In production website, it is correct.
-      const date = moment();
-      const dateClone = date.clone().subtract(8, 'hours').format('MMMM Do, h:m A')
-      const time = dateClone;
-      if (user[0].username !== botName) {
-        io.to(user[0].room).emit('message', formatMessage(botName, `${user[0].username} has left the chat`, time));
-      }
-    }
+    // const user = await User.find({
+    //   id: socket.id
+    // });
+    // if (user) {
+    //   // const time = moment().local().format('h:mm a');
+    //   //Locally, this time is 8 hours off. In production website, it is correct.
+    //   const date = moment();
+    //   const dateClone = date.clone().subtract(8, 'hours').format('MMMM Do, h:m A')
+    //   const time = dateClone;
+    //   if (user[0].username !== botName) {
+    //     io.to(user[0].room).emit('message', formatMessage(botName, `${user[0].username} has left the chat`, time));
+    //   }
+    // }
   });
 });
 
