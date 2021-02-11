@@ -84,7 +84,7 @@ io.on('connection', socket => {
 
     socket.emit('message', formatMessage(botName, `Welcome to UC Socially Dead, ${user.username}!`, time));
 
-    if (username != botName) {
+    if (username !== botName) {
       // Broadcast when a user connects
       socket.broadcast.to(user.room).emit('message', formatMessage(botName, `Say hi to ${username}!`, time));
     }
@@ -108,13 +108,15 @@ io.on('connection', socket => {
       const time = dateClone;
 
       // Add message to history
-      const history = new History({
-        sender: user.username,
-        message: msg,
-        room: user.room,
-        time: time
-      })
-      await history.save();
+      if (user.username !== botName) {
+        const history = new History({
+          sender: user.username,
+          message: msg,
+          room: user.room,
+          time: time
+        })
+        await history.save();
+      }
       // Emit Message
       io.to(user.room).emit('message', formatMessage(user.username, msg, time));
     });
@@ -132,7 +134,7 @@ io.on('connection', socket => {
       const date = moment();
       const dateClone = date.clone().subtract(8, 'hours').format('MMMM Do, h:m A')
       const time = dateClone;
-      if (user[0].username != botName) {
+      if (user[0].username !== botName) {
         io.to(user[0].room).emit('message', formatMessage(botName, `${user[0].username} has left the chat`, time));
       }
     }
