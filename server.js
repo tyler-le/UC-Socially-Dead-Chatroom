@@ -51,7 +51,10 @@ db.once("open", () => {
 const botName = 'Triton Bot'
 // Run when a client connects. Store user to database
 io.on('connection', socket => {
-   socket.on('joinRoom', async ({username, room}) => {
+  socket.on('joinRoom', async ({
+    username,
+    room
+  }) => {
 
     const user = new User({
       username: username,
@@ -70,6 +73,8 @@ io.on('connection', socket => {
 
     // Then welcome incoming user
     // const time = moment().format('MMMM Do, h:mm A');
+
+    //Locally, this time is 8 hours off. In production website, it is correct.
     const date = moment();
     const dateClone = date.clone().subtract(8, 'hours').format('MMMM Do, h:m A')
     const time = dateClone;
@@ -83,23 +88,30 @@ io.on('connection', socket => {
     // Get all users from db
     db.collection('users').find({}).toArray().then((allUsers) => {
       // Send users and room info
-      io.to(user.room).emit('roomUsers', {room: user.room,allUsers});
+      io.to(user.room).emit('roomUsers', {
+        room: user.room,
+        allUsers
+      });
     });
   });
 
   // Listen for chatMessage
   socket.on('chatMessage', (msg) => {
     getCurrentUser(socket.id).then(async user => {
-      const time = moment().local().format('MMMM Do, h:mm A');
+      // const time = moment().local().format('MMMM Do, h:mm A');
+      //Locally, this time is 8 hours off. In production website, it is correct.
+      const date = moment();
+      const dateClone = date.clone().subtract(8, 'hours').format('MMMM Do, h:m A')
+      const time = dateClone;
 
-       // Add message to history
-     const history = new History({
-      sender: user.username,
-      message: msg,
-      room: user.room,
-      time: time
-    })
-    await history.save();
+      // Add message to history
+      const history = new History({
+        sender: user.username,
+        message: msg,
+        room: user.room,
+        time: time
+      })
+      await history.save();
       // Emit Message
       io.to(user.room).emit('message', formatMessage(user.username, msg, time));
     });
@@ -108,9 +120,15 @@ io.on('connection', socket => {
   // Runs when client disconnects. Remove user from database
   socket.on('disconnect', async () => {
     // Emit Message
-    const user = await User.find({id: socket.id});
+    const user = await User.find({
+      id: socket.id
+    });
     if (user) {
-      const time = moment().local().format('h:mm a');
+      // const time = moment().local().format('h:mm a');
+      //Locally, this time is 8 hours off. In production website, it is correct.
+      const date = moment();
+      const dateClone = date.clone().subtract(8, 'hours').format('MMMM Do, h:m A')
+      const time = dateClone;
       io.to(user[0].room).emit('message', formatMessage(botName, `${user[0].username} has left the chat`, time));
     }
   });
