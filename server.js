@@ -1,4 +1,5 @@
 //TODO: Add a delete and edit comment feature
+//      Refactor code and move some into utils. For example, addUser(), 
 
 //ONLY USE IN DEVELOPMENT
 require('dotenv').config()
@@ -34,13 +35,6 @@ app.set('view engine', 'ejs');
 //========== Set up database / Mongoose==========//\
 const dbUrl = process.env.DB_URL
 const mongoose = require('mongoose');
-// Atlas DB
-// mongoose.connect(dbUrl, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-//   useCreateIndex: true,
-// });
-
 mongoose.connect(process.env.MONGODB_URI || process.env.DB_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -74,7 +68,7 @@ io.on('connection', socket => {
     await showChatHistory(db, formatMessage, socket, user);
 
     // Then welcome incoming user
-    const time = moment().format('MMMM Do, h:mm A');
+    const time = moment().format('MMMM Do, h:mm A', 'zz');
     socket.emit('message', formatMessage(botName, `Welcome to UC Socially Dead, ${user.username}!`, time));
 
     // Broadcast when a user connects
