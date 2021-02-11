@@ -1,5 +1,6 @@
 //TODO: Add a delete and edit comment feature
 //      Refactor code and move some into utils. For example, addUser(), 
+//      Moment is not displaying correct time in Heroku
 
 //ONLY USE IN DEVELOPMENT
 require('dotenv').config()
@@ -68,7 +69,7 @@ io.on('connection', socket => {
     await showChatHistory(db, formatMessage, socket, user);
 
     // Then welcome incoming user
-    const time = moment().format('MMMM Do, h:mm A', 'zz');
+    const time = moment().format('MMMM Do, h:mm A');
     socket.emit('message', formatMessage(botName, `Welcome to UC Socially Dead, ${user.username}!`, time));
 
     // Broadcast when a user connects
