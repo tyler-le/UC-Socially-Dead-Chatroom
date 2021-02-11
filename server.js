@@ -50,6 +50,7 @@ db.once("open", () => {
 
 const botName = 'Triton Bot'
 // Run when a client connects. Store user to database
+
 io.on('connection', socket => {
   socket.on('joinRoom', async ({
     username,
@@ -68,6 +69,7 @@ io.on('connection', socket => {
       socket.join(user.room);
     });
 
+
     // //Show Chat History
     await showChatHistory(db, formatMessage, socket, user);
 
@@ -82,9 +84,10 @@ io.on('connection', socket => {
 
     socket.emit('message', formatMessage(botName, `Welcome to UC Socially Dead, ${user.username}!`, time));
 
-    // Broadcast when a user connects
-    socket.broadcast.to(user.room).emit('message', formatMessage(botName, `Say hi to ${username}!`, time));
-
+    if (username != botName) {
+      // Broadcast when a user connects
+      socket.broadcast.to(user.room).emit('message', formatMessage(botName, `Say hi to ${username}!`, time));
+    }
     // Get all users from db
     db.collection('users').find({}).toArray().then((allUsers) => {
       // Send users and room info
@@ -129,7 +132,9 @@ io.on('connection', socket => {
       const date = moment();
       const dateClone = date.clone().subtract(8, 'hours').format('MMMM Do, h:m A')
       const time = dateClone;
-      io.to(user[0].room).emit('message', formatMessage(botName, `${user[0].username} has left the chat`, time));
+      if (user[0].username != botName) {
+        io.to(user[0].room).emit('message', formatMessage(botName, `${user[0].username} has left the chat`, time));
+      }
     }
   });
 });
