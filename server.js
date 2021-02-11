@@ -69,7 +69,7 @@ io.on('connection', socket => {
     await showChatHistory(db, formatMessage, socket, user);
 
     // Then welcome incoming user
-    const time = moment().format('MMMM Do, h:mm A');
+    const time = moment().local().format('MMMM Do, h:mm A');
     socket.emit('message', formatMessage(botName, `Welcome to UC Socially Dead, ${user.username}!`, time));
 
     // Broadcast when a user connects
@@ -85,7 +85,7 @@ io.on('connection', socket => {
   // Listen for chatMessage
   socket.on('chatMessage', (msg) => {
     getCurrentUser(socket.id).then(async user => {
-      const time = moment().format('MMMM Do, h:mm A');
+      const time = moment().local().format('MMMM Do, h:mm A');
 
        // Add message to history
      const history = new History({
@@ -105,7 +105,7 @@ io.on('connection', socket => {
     // Emit Message
     const user = await User.find({id: socket.id});
     if (user) {
-      const time = moment().format('h:mm a');
+      const time = moment().local().format('h:mm a');
       io.to(user[0].room).emit('message', formatMessage(botName, `${user[0].username} has left the chat`, time));
     }
   });
