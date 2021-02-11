@@ -1,7 +1,7 @@
 //TODO: Add a delete and edit comment feature
 
 //ONLY USE IN DEVELOPMENT
-require('dotenv').config()
+// require('dotenv').config()
 
 const History = require('./models/history');
 const formatMessage = require('./utils/messages');
