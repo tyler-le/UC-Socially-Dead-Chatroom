@@ -1,5 +1,4 @@
 //TODO: Add a delete and edit comment feature
-
 const History = require('./models/history');
 const formatMessage = require('./utils/messages');
 const showChatHistory = require('./utils/chatHistory');
@@ -32,10 +31,15 @@ app.set('view engine', 'ejs');
 const dbUrl = process.env.DB_URL
 const mongoose = require('mongoose');
 // Atlas DB
-mongoose.connect(dbUrl, {
+// mongoose.connect(dbUrl, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+//   useCreateIndex: true,
+// });
+
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useCreateIndex: true,
 });
 
 const db = mongoose.connection;
