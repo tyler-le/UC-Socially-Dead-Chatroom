@@ -1,4 +1,8 @@
 //TODO: Add a delete and edit comment feature
+
+//ONLY USE IN DEVELOPMENT
+require('dotenv').config()
+
 const History = require('./models/history');
 const formatMessage = require('./utils/messages');
 const showChatHistory = require('./utils/chatHistory');
@@ -37,7 +41,7 @@ const mongoose = require('mongoose');
 //   useCreateIndex: true,
 // });
 
-mongoose.connect(process.env.MONGODB_URI, {
+mongoose.connect(process.env.MONGODB_URI || process.env.DB_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });

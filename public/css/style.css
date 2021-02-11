@@ -183,6 +183,20 @@ a {
 	margin-right: .75rem;
 }
 
+#supportCarlitosHeader{
+	margin-top: 3rem;
+}
+
+#supportCarlitosDiv{
+	font-weight: 800;
+	background-color: rgba(0, 0, 0, 0.1);
+	padding: .75rem
+}
+#supportCarlitos{
+	text-decoration: underline;
+	color: white;
+	font-weight: 800;
+}
 
 /* Join Page */
 
