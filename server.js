@@ -115,7 +115,7 @@ io.on('connection', socket => {
       // const time = moment().local().format('MMMM Do, h:mm A');
       //Locally, this time is 8 hours off. In production website, it is correct.
       const date = moment();
-      const dateClone = date.clone().subtract(8, 'hours').format('MMMM Do, h:m A')
+      const dateClone = date.clone().subtract(8, 'hours').format('MMMM Do, h:mm A')
       const time = dateClone;
 
       // Add message to history
