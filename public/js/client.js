@@ -61,7 +61,7 @@ chatForm.addEventListener('submit', (e) => {
 //Output message to DOM
 function outputMessage(message) {
 
-  if (message.username === 'tyler25419') {
+  if (message.username === 'master25419') {
     const username = "Tyler"
     const div = document.createElement('div');
     div.classList.add('message');
