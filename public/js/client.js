@@ -60,72 +60,35 @@ chatForm.addEventListener('submit', (e) => {
 //Output message to DOM
 function outputMessage(message) {
 
-  if (message.username === 'tyler25419') {
-    const username = "Tyler"
-    // const div = document.createElement('div');
-    // div.classList.add('message');
-    // div.innerHTML = `<p class='meta'> <span style="color: #00FFFF;">${username}</span> <span>${message.time} </span></p> <p class = "text" > ${message.text} </p>`
+  // if (message.username === 'tyler25419') {
+  //   const username = "Tyler"
+  //   const div = document.createElement('div');
+  //   // div.classList.add('message');
+  //   // div.innerHTML = `<p class='meta'> <span style="color: #00FFFF;">${username}</span> <span>${message.time} </span></p> <p class = "text" > ${message.text} </p>`
+  //   document.querySelector('.chat-messages').appendChild(div);
 
-    const p = document.createElement('p');
-    p.classList.add('meta')
 
-    const messageP = document.createElement('p');
-    p.classList.add('text')
+  //   const p = document.createElement('p').classList.add('meta');
+  //   const nameSpan = document.createElement('span').classList.add('nameSpan');
+  //   const timeSpan = document.createElement('span').classList.add('timeSpan');
+  //   const messageSpan = document.createElement('span').classList.add('messageSpan');
+  //   p.appendChild(nameSpan);
+  //   p.appendChild(timeSpan);
+  //   p.appendChild(messageSpan);
 
-    const nameSpan = document.createElement('span');
-    nameSpan.innerText = username + " ";
-
-    const timeSpan = document.createElement('span');
-    timeSpan.innerText = message.time;
-
-    const messageSpan = document.createElement('span');
-    messageSpan.innerText = message.text;
-
-    nameSpan.style = "color: blue"
-
-    p.appendChild(nameSpan);
-    p.appendChild(timeSpan);
-    messageP.appendChild(messageSpan);
-
-    const div = document.createElement('div');
-    div.classList.add('message')
-    div.appendChild(p);
-    div.appendChild(messageP)
-    document.querySelector('.chat-messages').appendChild(div);
+  //   const div = document.createElement('div').classList.add('message');
+  //   div.appendChild
 
 
 
-
-  } 
+  // } 
   
-  else {
-    const p = document.createElement('p');
-    p.classList.add('meta')
-
-    const messageP = document.createElement('p');
-    p.classList.add('text')
-
-    const nameSpan = document.createElement('span');
-    nameSpan.innerText = username + " ";
-
-    const timeSpan = document.createElement('span');
-    timeSpan.innerText = message.time;
-
-    const messageSpan = document.createElement('span');
-    messageSpan.innerText = message.text;
-
-    nameSpan.style = "color: #192847"
-
-    p.appendChild(nameSpan);
-    p.appendChild(timeSpan);
-    messageP.appendChild(messageSpan);
-
+  // else {
     const div = document.createElement('div');
-    div.classList.add('message')
-    div.appendChild(p);
-    div.appendChild(messageP)
+    div.classList.add('message');
+    div.innerHTML = `<p class='meta'> ${message.username} <span>${message.time} </span></p> <p class = "text" > ${message.text} </p>`
     document.querySelector('.chat-messages').appendChild(div);
-  }
+  // }
 
 }
 
