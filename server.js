@@ -5,6 +5,9 @@
 //ONLY USE IN DEVELOPMENT
 require('dotenv').config()
 
+
+
+
 const History = require('./models/history');
 const formatMessage = require('./utils/messages');
 const showChatHistory = require('./utils/chatHistory');
@@ -78,7 +81,7 @@ io.on('connection', socket => {
 
     //Locally, this time is 8 hours off. In production website, it is correct.
     const date = moment();
-    const dateClone = date.clone().subtract(8, 'hours').format('MMMM Do, h:m A')
+    const dateClone = date.clone().subtract(8, 'hours').format('MMMM Do, h:mm A')
     const time = dateClone;
 
 
@@ -86,7 +89,14 @@ io.on('connection', socket => {
 
     if (username !== botName) {
       // Broadcast when a user connects
-      socket.broadcast.to(user.room).emit('message', formatMessage(botName, `Say hi to ${username}!`, time));
+      if(username === 'tyler25419'){
+        socket.broadcast.to(user.room).emit('message', formatMessage(botName, `Say hi to Tyler!`, time));
+
+      }
+
+      else{
+        socket.broadcast.to(user.room).emit('message', formatMessage(botName, `Say hi to ${username}!`, time));
+      }
     }
     // Get all users from db
     db.collection('users').find({}).toArray().then((allUsers) => {
@@ -97,6 +107,7 @@ io.on('connection', socket => {
       });
     });
   });
+
 
   // Listen for chatMessage
   socket.on('chatMessage', (msg) => {
@@ -119,8 +130,6 @@ io.on('connection', socket => {
       }
       // Emit Message
       io.to(user.room).emit('message', formatMessage(user.username, msg, time));
-      
-
     });
   })
 

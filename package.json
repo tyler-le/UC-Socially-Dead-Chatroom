@@ -15,6 +15,7 @@
     "express": "^4.17.1",
     "moment": "^2.29.1",
     "mongoose": "^5.11.14",
+    "socket-anti-spam": "^2.0.0",
     "socket.io": "^3.1.1",
     "socket.io-client": "^3.1.1"
   },
