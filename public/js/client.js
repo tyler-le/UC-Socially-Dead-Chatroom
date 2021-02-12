@@ -62,16 +62,68 @@ function outputMessage(message) {
 
   if (message.username === 'tyler25419') {
     const username = "Tyler"
+    // const div = document.createElement('div');
+    // div.classList.add('message');
+    // div.innerHTML = `<p class='meta'> <span style="color: #00FFFF;">${username}</span> <span>${message.time} </span></p> <p class = "text" > ${message.text} </p>`
+
+    const p = document.createElement('p');
+    p.classList.add('meta')
+
+    const messageP = document.createElement('p');
+    p.classList.add('text')
+
+    const nameSpan = document.createElement('span');
+    nameSpan.innerText = username + " ";
+
+    const timeSpan = document.createElement('span');
+    timeSpan.innerText = message.time;
+
+    const messageSpan = document.createElement('span');
+    messageSpan.innerText = message.text;
+
+    nameSpan.style = "color: blue"
+
+    p.appendChild(nameSpan);
+    p.appendChild(timeSpan);
+    messageP.appendChild(messageSpan);
+
     const div = document.createElement('div');
-    div.classList.add('message');
-    div.innerHTML = `<p class='meta'> <span style="color: #00FFFF;">${username}</span> <span>${message.time} </span></p> <p class = "text" > ${message.text} </p>`
+    div.classList.add('message')
+    div.appendChild(p);
+    div.appendChild(messageP)
     document.querySelector('.chat-messages').appendChild(div);
+
+
+
+
   } 
   
   else {
+    const p = document.createElement('p');
+    p.classList.add('meta')
+
+    const messageP = document.createElement('p');
+    p.classList.add('text')
+
+    const nameSpan = document.createElement('span');
+    nameSpan.innerText = username + " ";
+
+    const timeSpan = document.createElement('span');
+    timeSpan.innerText = message.time;
+
+    const messageSpan = document.createElement('span');
+    messageSpan.innerText = message.text;
+
+    nameSpan.style = "color: blue"
+
+    p.appendChild(nameSpan);
+    p.appendChild(timeSpan);
+    messageP.appendChild(messageSpan);
+
     const div = document.createElement('div');
-    div.classList.add('message');
-    div.innerHTML = `<p class='meta'> ${message.username} <span>${message.time} </span></p> <p class = "text" > ${message.text} </p>`
+    div.classList.add('message')
+    div.appendChild(p);
+    div.appendChild(messageP)
     document.querySelector('.chat-messages').appendChild(div);
   }
 
