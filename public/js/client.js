@@ -20,9 +20,8 @@ socket.emit('joinRoom', {
 })
 
 // Get room and users
-socket.on('roomUsers', ({room,allUsers}) => {
+socket.on('roomUsers', ({room}) => {
   outputRoomName(room);
-  // outputUsers(allUsers, room)
 });
 
 //Message from server
@@ -61,7 +60,7 @@ chatForm.addEventListener('submit', (e) => {
 //Output message to DOM
 function outputMessage(message) {
 
-  if (message.username === 'master25419') {
+  if (message.username === 'tyler25419') {
     const username = "Tyler"
     const div = document.createElement('div');
     div.classList.add('message');

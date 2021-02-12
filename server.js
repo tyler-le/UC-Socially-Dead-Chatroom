@@ -5,9 +5,6 @@
 //ONLY USE IN DEVELOPMENT
 require('dotenv').config()
 
-
-
-
 const History = require('./models/history');
 const formatMessage = require('./utils/messages');
 const showChatHistory = require('./utils/chatHistory');
@@ -53,7 +50,6 @@ db.once("open", () => {
 
 const botName = 'Triton Bot'
 // Run when a client connects. Store user to database
-
 io.on('connection', socket => {
   socket.on('joinRoom', async ({
     username,
@@ -75,15 +71,11 @@ io.on('connection', socket => {
 
     // //Show Chat History
     await showChatHistory(db, formatMessage, socket, user);
-
     // Then welcome incoming user
-    // const time = moment().format('MMMM Do, h:mm A');
-
     //Locally, this time is 8 hours off. In production website, it is correct.
     const date = moment();
     const dateClone = date.clone().subtract(8, 'hours').format('MMMM Do, h:mm A')
     const time = dateClone;
-
 
     socket.emit('message', formatMessage(botName, `Welcome to UC Socially Dead, ${user.username}!`, time));
 
@@ -91,7 +83,6 @@ io.on('connection', socket => {
       // Broadcast when a user connects
       if(username === 'tyler25419'){
         socket.broadcast.to(user.room).emit('message', formatMessage(botName, `Say hi to Tyler!`, time));
-
       }
 
       else{
@@ -135,20 +126,7 @@ io.on('connection', socket => {
 
   // Runs when client disconnects. Remove user from database
   socket.on('disconnect', async () => {
-    // Emit Message
-    // const user = await User.find({
-    //   id: socket.id
-    // });
-    // if (user) {
-    //   // const time = moment().local().format('h:mm a');
-    //   //Locally, this time is 8 hours off. In production website, it is correct.
-    //   const date = moment();
-    //   const dateClone = date.clone().subtract(8, 'hours').format('MMMM Do, h:m A')
-    //   const time = dateClone;
-    //   if (user[0].username !== botName) {
-    //     io.to(user[0].room).emit('message', formatMessage(botName, `${user[0].username} has left the chat`, time));
-    //   }
-    // }
+    await User.findOneAndDelete({id: socket.id});
   });
 });
 
