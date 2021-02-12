@@ -67,7 +67,31 @@ function outputMessage(message) {
     div.classList.add('message');
     div.innerHTML = `<p class='meta'> <span style="color: #00FFFF;">${username}</span> <span>${message.time} </span></p> <p class = "text" > ${message.text} </p>`
     document.querySelector('.chat-messages').appendChild(div);
-  } else {
+  } 
+  if (message.username === 'Kelly') {
+    const username = "Kelly"
+    const div = document.createElement('div');
+    div.classList.add('message');
+    div.innerHTML = `<p class='meta'> <span style="color: #fff;">${username}</span> <span>${message.time} </span></p> <p class = "text" > ${message.text} </p>`
+    document.querySelector('.chat-messages').appendChild(div);
+  }
+  if (message.username === 'Pditty') {
+    const username = "Pditty"
+    const div = document.createElement('div');
+    div.classList.add('message');
+    div.innerHTML = `<p class='meta'> <span style="color: red;">${username}</span> <span>${message.time} </span></p> <p class = "text" > ${message.text} </p>`
+    document.querySelector('.chat-messages').appendChild(div);
+  }
+  
+  if (message.username === 'Joey') {
+    const username = "Joey"
+    const div = document.createElement('div');
+    div.classList.add('message');
+    div.innerHTML = `<p class='meta'> <span style="color: red;">${username}</span> <span>${message.time} </span></p> <p class = "text" > ${message.text} </p>`
+    document.querySelector('.chat-messages').appendChild(div);
+  }
+  
+  else {
     const div = document.createElement('div');
     div.classList.add('message');
     div.innerHTML = `<p class='meta'> ${message.username} <span>${message.time} </span></p> <p class = "text" > ${message.text} </p>`
