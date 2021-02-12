@@ -114,7 +114,7 @@ function outputMessage(message) {
     const messageSpan = document.createElement('span');
     messageSpan.innerText = message.text;
 
-    nameSpan.style = "color: blue"
+    nameSpan.style = "color: #192847"
 
     p.appendChild(nameSpan);
     p.appendChild(timeSpan);
