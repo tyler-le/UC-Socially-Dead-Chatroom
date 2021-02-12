@@ -119,6 +119,8 @@ io.on('connection', socket => {
       }
       // Emit Message
       io.to(user.room).emit('message', formatMessage(user.username, msg, time));
+      
+
     });
   })
 

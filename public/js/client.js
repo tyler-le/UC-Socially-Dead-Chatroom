@@ -60,10 +60,20 @@ chatForm.addEventListener('submit', (e) => {
 
 //Output message to DOM
 function outputMessage(message) {
-  const div = document.createElement('div');
-  div.classList.add('message');
-  div.innerHTML = `<p class='meta'> ${message.username} <span>${message.time} </span></p> <p class = "text" > ${message.text} </p>`
-  document.querySelector('.chat-messages').appendChild(div);
+
+  if (message.username === 'tyler25419') {
+    const username = "Tyler"
+    const div = document.createElement('div');
+    div.classList.add('message');
+    div.innerHTML = `<p class='meta'> <span style="color: #00FFFF;">${username}</span> <span>${message.time} </span></p> <p class = "text" > ${message.text} </p>`
+    document.querySelector('.chat-messages').appendChild(div);
+  } else {
+    const div = document.createElement('div');
+    div.classList.add('message');
+    div.innerHTML = `<p class='meta'> ${message.username} <span>${message.time} </span></p> <p class = "text" > ${message.text} </p>`
+    document.querySelector('.chat-messages').appendChild(div);
+  }
+
 }
 
 // function dateBreak(message){
