@@ -5,11 +5,27 @@ async function showChatHistory(db, formatMessage, socket, user) {
   // Load the database
   const chatHistoryArray = await db.collection('histories').find({}).toArray();
 
-  for (chat of chatHistoryArray) {
-    // Emit chat message
-      if(chat.room === user.room){
+  // for (chat of chatHistoryArray) {
+  //   // Emit chat message
+  //     if(chat.room === user.room){
+  //       socket.emit('message', formatMessage(chat.sender, chat.message, chat.time))
+  //     }
+  // }
+
+  if (user.room !== 'Social') {
+    for (chat of chatHistoryArray){
+      if (chat.room === user.room) {
         socket.emit('message', formatMessage(chat.sender, chat.message, chat.time))
       }
+    }
+
+  } else {
+    for (let i = chatHistoryArray.length - 1; i > chatHistoryArray.length - 500; i--) {
+      let chat = chatHistoryArray[i]
+      if (chat.room === user.room) {
+        socket.emit('message', formatMessage(chat.sender, chat.message, chat.time))
+      }
+    }
   }
 
   // socket.emit('timeBreak', formatMessage("", " ", timeBreak))
