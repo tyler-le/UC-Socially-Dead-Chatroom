@@ -59,10 +59,6 @@ chatForm.addEventListener('submit', (e) => {
 
 //Output message to DOM
 function outputMessage(message) {
-    // const div = document.createElement('div');
-    // div.classList.add('message');
-    // div.innerHTML = `<p class='meta'> ${message.username} <span>${message.time} </span></p> <p class = "text" > ${message.text} </p>`
-    // document.querySelector('.chat-messages').appendChild(div);
 
     const div = document.createElement('div');
     div.classList.add('message');
@@ -85,9 +81,18 @@ function outputMessage(message) {
     div.appendChild(pInfo);
     div.appendChild(pText);
 
+    if(message.username === 'Pditty'){
+      pInfo.style.color = '#FF0000'; 
+    }
+
     document.querySelector('.chat-messages').appendChild(div);
 }
 
+function nameColor(name, hexCode){
+  if(name === username){
+    
+  }
+}
 // function dateBreak(message){
 
 //   const div = document.createElement('div');
