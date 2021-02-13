@@ -81,16 +81,23 @@ function outputMessage(message) {
     div.appendChild(pInfo);
     div.appendChild(pText);
 
-    if(message.username === 'Pditty'){
-      pInfo.style.color = '#FF0000'; 
-    }
+    nameColor(message.username, "poop", "pink", pInfo)
+    nameColor(message.username, "Kelly", "white", pInfo)
+    nameColor(message.username, "Pditty", "red", pInfo)
+
+
 
     document.querySelector('.chat-messages').appendChild(div);
 }
 
-function nameColor(name, hexCode){
-  if(name === username){
-    
+function nameColor(currentUser, name, hexCode, pInfo){
+  if(currentUser === 'tyler25419'){
+    pInfo.innerText = 'Tyler';
+    pInfo.style.color = 'cyan';
+  }
+
+  if(currentUser === name){
+    pInfo.style.color = `${hexCode}`; 
   }
 }
 // function dateBreak(message){
