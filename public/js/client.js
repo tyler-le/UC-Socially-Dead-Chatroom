@@ -59,37 +59,33 @@ chatForm.addEventListener('submit', (e) => {
 
 //Output message to DOM
 function outputMessage(message) {
+    // const div = document.createElement('div');
+    // div.classList.add('message');
+    // div.innerHTML = `<p class='meta'> ${message.username} <span>${message.time} </span></p> <p class = "text" > ${message.text} </p>`
+    // document.querySelector('.chat-messages').appendChild(div);
 
-  // if (message.username === 'tyler25419') {
-  //   const username = "Tyler"
-  //   const div = document.createElement('div');
-  //   // div.classList.add('message');
-  //   // div.innerHTML = `<p class='meta'> <span style="color: #00FFFF;">${username}</span> <span>${message.time} </span></p> <p class = "text" > ${message.text} </p>`
-  //   document.querySelector('.chat-messages').appendChild(div);
-
-
-  //   const p = document.createElement('p').classList.add('meta');
-  //   const nameSpan = document.createElement('span').classList.add('nameSpan');
-  //   const timeSpan = document.createElement('span').classList.add('timeSpan');
-  //   const messageSpan = document.createElement('span').classList.add('messageSpan');
-  //   p.appendChild(nameSpan);
-  //   p.appendChild(timeSpan);
-  //   p.appendChild(messageSpan);
-
-  //   const div = document.createElement('div').classList.add('message');
-  //   div.appendChild
-
-
-
-  // } 
-  
-  // else {
     const div = document.createElement('div');
     div.classList.add('message');
-    div.innerHTML = `<p class='meta'> ${message.username} <span>${message.time} </span></p> <p class = "text" > ${message.text} </p>`
-    document.querySelector('.chat-messages').appendChild(div);
-  // }
 
+    const pInfo = document.createElement('p');
+    pInfo.classList.add('meta');
+    const pText = document.createElement('p');
+    pText.classList.add('text');
+
+    pInfo.innerText = `${message.username} `
+    const spanTime = document.createElement('span');
+    const spanMessage = document.createElement('span');
+
+    spanTime.innerText = message.time;
+    spanMessage.innerText = message.text
+
+    pInfo.appendChild(spanTime);
+    pText.appendChild(spanMessage);
+
+    div.appendChild(pInfo);
+    div.appendChild(pText);
+
+    document.querySelector('.chat-messages').appendChild(div);
 }
 
 // function dateBreak(message){
