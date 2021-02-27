@@ -4,13 +4,7 @@ const roomName = document.getElementById('room-name');
 const userList = document.getElementById('users');
 
 //Get username and room query string
-const {
-  username,
-  room
-} = Qs.parse(location.search, {
-  ignoreQueryPrefix: true
-})
-
+const {username,room} = Qs.parse(location.search, {ignoreQueryPrefix: true});
 const socket = io();
 
 //Join Chatroom
@@ -32,13 +26,6 @@ socket.on('message', message => {
   chatMessages.scrollTop = chatMessages.scrollHeight;
 });
 
-// //Time break for chat history from server
-// socket.on('timeBreak', message => {  
-//   dateBreak(message)
-
-//   //Scroll Down
-//   chatMessages.scrollTop = chatMessages.scrollHeight;
-// });
 
 //Message Submit
 chatForm.addEventListener('submit', (e) => {
@@ -81,74 +68,10 @@ function outputMessage(message) {
     div.appendChild(pInfo);
     div.appendChild(pText);
 
-    nameColor(message.username, "poop", "pink", pInfo)
-    nameColor(message.username, "Kelly", "white", pInfo)
-    nameColor(message.username, "Pditty", "red", pInfo)
-
-
-
     document.querySelector('.chat-messages').appendChild(div);
 }
-
-function nameColor(currentUser, name, hexCode, pInfo){
-  if(currentUser === 'tyler25419'){
-    pInfo.innerText = 'Tyler';
-    pInfo.style.color = 'cyan';
-  }
-
-  if(currentUser === name){
-    pInfo.style.color = `${hexCode}`; 
-  }
-}
-// function dateBreak(message){
-
-//   const div = document.createElement('div');
-//   // div.classList.add('message');
-//   div.innerHTML = `<h5 class = 'dateBreak'> <span class = 'dateText'>${message.time}</span> </h5>`
-//   document.querySelector('.chat-messages').appendChild(div);
-
-// }
 
 //Add room name to DOM
 function outputRoomName(room) {
   roomName.innerText = room;
 }
-
-// Add users to DOM
-//Outputs unique names but doesn't delete users who have left
-// function outputUsers(allUsers, room) {
-//   const usersInRoom = [];
-//   userList.innerHTML = '';
-//   let uniqueNames = [];
-
-//   for (user of allUsers) {
-//     //Find all user objects that belong to specific room
-//     if (user.room === room) {
-//       usersInRoom.push(user)
-//     }
-//   }
-//   const arr = usersInRoom, unique = [...new Set(arr.map(a => a.username))];
-//   uniqueNames = [...unique];
-//   // Output unique names to DOM
-//   console.log(uniqueNames)
-//   for (uniqueNames of unique) {
-//     const li = document.createElement('li');
-//     li.innerText = uniqueNames;
-//     userList.appendChild(li);
-//   }
-// }
-
-
-// // Add users to DOM. Outputs names correctly but has weird bug that duplicates when refreshing
-// function outputUsers(allUsers, room) {
-//   userList.innerHTML = '';
-
-//   for (user of allUsers) {
-//     //Find all user objects that belong to specific room
-//     if (user.room === room) {
-//       const li = document.createElement('li');
-//       li.innerText = user.username;
-//       userList.appendChild(li);
-//     }
-//   }
-// }

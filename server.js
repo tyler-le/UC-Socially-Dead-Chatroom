@@ -1,8 +1,6 @@
 //TODO: Add a delete and edit comment feature
 //      Refactor code and move some into utils. For example, addUser(), 
-//      Moment is not displaying correct time in Heroku
 
-//ONLY USE IN DEVELOPMENT
 require('dotenv').config()
 
 const History = require('./models/history');
@@ -21,10 +19,7 @@ const io = socketio(server);
 const PORT = process.env.PORT || 3000;
 
 const User = require('./models/user');
-const {
-  userJoin,
-  getCurrentUser,
-} = require('./utils/users')
+const {userJoin, getCurrentUser} = require('./utils/users')
 
 // Set static folder
 const path = require('path');
@@ -34,7 +29,6 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.set('view engine', 'ejs');
 
 //========== Set up database / Mongoose==========//\
-const dbUrl = process.env.DB_URL
 const mongoose = require('mongoose');
 mongoose.connect(process.env.MONGODB_URI || process.env.DB_URL, {
   useNewUrlParser: true,
@@ -63,16 +57,11 @@ io.on('connection', socket => {
     });
 
     await user.save();
-    await db.collection('users').find({}).toArray().then((allUsers) => {
-      userJoin(user);
-      socket.join(user.room);
-    });
+    await db.collection('users').find({}).toArray();
+    userJoin(user);
+    socket.join(user.room);
 
-
-    // //Show Chat History
     await showChatHistory(db, formatMessage, socket, user);
-    // Then welcome incoming user
-    //Locally, this time is 8 hours off. In production website, it is correct.
     const date = moment();
     const dateClone = date.clone().subtract(8, 'hours').format('MMMM Do, h:mm A')
     const time = dateClone;
@@ -81,34 +70,20 @@ io.on('connection', socket => {
 
     if (username !== botName) {
       // Broadcast when a user connects
-      if(username === 'tyler25419'){
-        socket.broadcast.to(user.room).emit('message', formatMessage(botName, `Say hi to Tyler!`, time));
-      }
-
-      else{
-        socket.broadcast.to(user.room).emit('message', formatMessage(botName, `Say hi to ${username}!`, time));
-      }
+      socket.broadcast.to(user.room).emit('message', formatMessage(botName, `Say hi to ${username}!`, time));
     }
-    // Get all users from db
-    db.collection('users').find({}).toArray().then((allUsers) => {
-      // Send users and room info
-      io.to(user.room).emit('roomUsers', {
-        room: user.room,
-        allUsers
-      });
-    });
+
+    io.to(user.room).emit('roomUsers', {room: user.room});
   });
 
 
   // Listen for chatMessage
-  socket.on('chatMessage', (msg) => {
-    getCurrentUser(socket.id).then(async user => {
-      // const time = moment().local().format('MMMM Do, h:mm A');
-      //Locally, this time is 8 hours off. In production website, it is correct.
-      const date = moment();
-      const dateClone = date.clone().subtract(8, 'hours').format('MMMM Do, h:mm A')
-      const time = dateClone;
+  socket.on('chatMessage', async (msg) => {
+    const date = moment();
+    const dateClone = date.clone().subtract(8, 'hours').format('MMMM Do, h:mm A')
+    const time = dateClone;
 
+    const user = await getCurrentUser(socket.id);
       // Add message to history
       if (user.username !== botName) {
         const history = new History({
@@ -121,13 +96,13 @@ io.on('connection', socket => {
       }
       // Emit Message
       io.to(user.room).emit('message', formatMessage(user.username, msg, time));
-    });
-  })
+
+  });
 
   // Runs when client disconnects. Remove user from database
   socket.on('disconnect', async () => {
     await User.findOneAndDelete({id: socket.id});
-  });
+  }); 
 });
 
 server.listen(PORT, () => {

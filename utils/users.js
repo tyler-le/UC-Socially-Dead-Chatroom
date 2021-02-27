@@ -1,9 +1,7 @@
 const User = require('../models/user');
 
 // Join user to chat
-function userJoin(user) {
-  return user;
-}
+function userJoin(user) {return user}
 
 // Get current user
 async function getCurrentUser(socketid) {
