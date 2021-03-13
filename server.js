@@ -1,8 +1,6 @@
 //TODO: Add a delete and edit comment feature
 //      Refactor code and move some into utils. For example, addUser(), 
-if (process.env.NODE_ENV !== "production") {
-  require('dotenv').config();
-}
+require('dotenv').config()
 
 const History = require('./models/history');
 const User = require('./models/user');
@@ -28,8 +26,10 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 //========== Set up database / Mongoose==========//
 const mongoose = require('mongoose');
-const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/ucsociallydead'
-mongoose.connect(dbUrl, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(process.env.MONGODB_URI || process.env.DB_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 const db = mongoose.connection;
 db.once("open", () => { console.log("Database Connected")});
