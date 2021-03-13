@@ -1,11 +1,9 @@
 
 async function showChatHistory(db, formatMessage, socket, user) {
-  const chatHistoryArray = await db.collection('histories').find({}).toArray();
+  const chatHistoryArray = await db.collection('histories').find({room:user.room}).toArray();
 
   for (chat of chatHistoryArray) {
-      if(chat.room === user.room){
-        socket.emit('message', formatMessage(chat.sender, chat.message, chat.time))
-      }
+      socket.emit('message', formatMessage(chat.sender, chat.message, chat.time))
   }
 }
 

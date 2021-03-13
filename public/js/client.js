@@ -8,21 +8,16 @@ const {username,room} = Qs.parse(location.search, {ignoreQueryPrefix: true});
 const socket = io();
 
 //Join Chatroom
-socket.emit('joinRoom', {
-  username,
-  room
-})
+socket.emit('joinRoom', {username, room})
 
 // Get room and users
-socket.on('roomUsers', ({room}) => {
-  outputRoomName(room);
-});
+socket.on('roomUsers', ({room}) => {outputRoomName(room)});
 
 //Message from server
 socket.on('message', message => {  
   outputMessage(message)
 
-  //Scroll Down
+  //Scrolls down when a new message is sent
   chatMessages.scrollTop = chatMessages.scrollHeight;
 });
 
